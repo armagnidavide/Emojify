@@ -5,13 +5,14 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.util.Log;
 import android.util.SparseArray;
 import android.widget.Toast;
 
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.FaceDetector;
+
+import timber.log.Timber;
 
 public class Emojifier {
     private static final float EMOJI_SCALE_FACTOR = .9f;
@@ -34,7 +35,7 @@ public class Emojifier {
         SparseArray<Face> faces = detector.detect(frame);
 
         // Log the number of faces
-        Log.d(LOG_TAG, "detectFaces: number of faces = " + faces.size());
+        Timber.d(LOG_TAG, "detectFaces: number of faces = " + faces.size());
         Bitmap resultBitmap = bitmap;
 
         // If there are no faces detected, show a Toast message
@@ -102,10 +103,10 @@ public class Emojifier {
      */
     private static Emoji whichEmoji(Face face) {
         // Log all the probabilities
-        Log.d(LOG_TAG, "whichEmoji: smilingProb = " + face.getIsSmilingProbability());
-        Log.d(LOG_TAG, "whichEmoji: leftEyeOpenProb = "
+        Timber.d(LOG_TAG, "whichEmoji: smilingProb = " + face.getIsSmilingProbability());
+        Timber.d(LOG_TAG, "whichEmoji: leftEyeOpenProb = "
                 + face.getIsLeftEyeOpenProbability());
-        Log.d(LOG_TAG, "whichEmoji: rightEyeOpenProb = "
+        Timber.d(LOG_TAG, "whichEmoji: rightEyeOpenProb = "
                 + face.getIsRightEyeOpenProbability());
         boolean smiling = face.getIsSmilingProbability() > SMILING_PROB_THRESHOLD;
 
